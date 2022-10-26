@@ -1,12 +1,34 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 const Register = () => {
-    return (
+    const { signInWithGoogle, signInWithGithub } = useContext(AuthContext);
 
+    // handel google register
+    const handelGoogleLogIn = () => {
+        signInWithGoogle()
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+            }).catch((error) => {
+                console.log(error)
+            })
+    }
+    // handel github register
+    const handelGithubLogIn = () => {
+        signInWithGithub()
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+            }).catch((error) => {
+                console.log(error)
+            })
+    }
+    return (
         <Container>
             <div className='mx-auto' style={{ maxWidth: "500px" }}>
                 <h4 className='mt-3'>Register Now</h4>
@@ -33,11 +55,11 @@ const Register = () => {
                 </Form>
                 <hr />
                 <div>
-                    <Button className='me-3' variant='outline-primary'><FaGoogle className='me-3'></FaGoogle><small>SignUp with Google</small></Button>
-                    <Button variant='outline-dark'><FaGithub className='me-3'></FaGithub><small>SignUp with Github</small></Button>
+                    <Button onClick={handelGoogleLogIn} className='me-3' variant='outline-primary'><FaGoogle className='me-3'></FaGoogle><small>SignUp with Google</small></Button>
+                    <Button onClick={handelGithubLogIn} variant='outline-dark'><FaGithub className='me-3'></FaGithub><small>SignUp with Github</small></Button>
                 </div>
             </div>
-        </Container >
+        </Container>
 
     );
 };
