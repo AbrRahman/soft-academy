@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 const Register = () => {
     const [passwordErr, setPasswordErr] = useState('')
-    const { signInWithGoogle, signInWithGithub, registerEmailAndPassword } = useContext(AuthContext);
+    const { signInWithGoogle, signInWithGithub, registerEmailAndPassword, updateUserProfile } = useContext(AuthContext);
 
     // handel google register
     const handelGoogleLogIn = () => {
@@ -51,6 +51,11 @@ const Register = () => {
             .then((result) => {
                 const user = result.user;
                 console.log(user);
+            }).catch((error) => {
+                console.log(error)
+            })
+        updateUserProfile()
+            .then(() => {
             }).catch((error) => {
                 console.log(error)
             })
