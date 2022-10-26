@@ -36,7 +36,6 @@ const Register = () => {
                     <Button className='me-3' variant='outline-primary'><FaGoogle className='me-3'></FaGoogle><small>SignUp with Google</small></Button>
                     <Button variant='outline-dark'><FaGithub className='me-3'></FaGithub><small>SignUp with Github</small></Button>
                 </div>
-                {/* <p>Don't have account? </p> */}
             </div>
         </Container >
 
