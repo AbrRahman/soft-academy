@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -6,7 +6,8 @@ import { FaGithub, FaGoogle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 const Register = () => {
-    const { signInWithGoogle, signInWithGithub } = useContext(AuthContext);
+    const [passwordErr, setPasswordErr] = useState('')
+    const { signInWithGoogle, signInWithGithub, registerEmailAndPassword } = useContext(AuthContext);
 
     // handel google register
     const handelGoogleLogIn = () => {
@@ -28,11 +29,38 @@ const Register = () => {
                 console.log(error)
             })
     }
+    // handel email password register
+    const handelRegister = (event) => {
+        setPasswordErr('')
+        event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        const photoUrl = form.photoUrl.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const confirmPassword = form.confirmPassword.value;
+        if (password.length < 6) {
+            setPasswordErr('Password is must be large then 6 characters');
+            return;
+        }
+        if (password !== confirmPassword) {
+            setPasswordErr('Password and confirm password does not match')
+            return;
+        }
+        registerEmailAndPassword(email, password)
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+            }).catch((error) => {
+                console.log(error)
+            })
+        console.log(name, photoUrl, email, password, confirmPassword);
+    }
     return (
         <Container>
             <div className='mx-auto' style={{ maxWidth: "500px" }}>
                 <h4 className='mt-3'>Register Now</h4>
-                <Form className='mt-3'>
+                <Form onSubmit={handelRegister} className='mt-3'>
                     <Form.Group className="mb-2">
                         <Form.Control type="text" name='name' placeholder="Enter user name" />
                     </Form.Group>
@@ -45,7 +73,11 @@ const Register = () => {
                     <Form.Group className="mb-2">
                         <Form.Control type="password" name='password' placeholder="Password" />
                     </Form.Group>
-                    <p>This is error</p>
+                    <Form.Group className="mb-2">
+                        <Form.Control type="password" name='confirmPassword' placeholder="Confirm password" />
+                    </Form.Group>
+                    {/* show password error */}
+                    <p className='text-danger'>{passwordErr}</p>
                     <div className='d-flex align-items-center'>
                         <Button variant="primary" type="submit">
                             Register
