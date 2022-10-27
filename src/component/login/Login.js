@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -6,30 +6,31 @@ import { FaGithub, FaGoogle } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 const Login = () => {
+    const [err, setErr] = useState('')
     const { signInWithGoogle, signInWithGithub, logInWithEmailAndPassword } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
-    const redirectUrl = location.state?.from?.pathname || '/';
+    const redirectUrl = location.state?.from?.pathname || '/course';
     // handel google login
     const handelGoogleLogIn = () => {
+        setErr('')
         signInWithGoogle()
             .then((result) => {
                 const user = result.user;
-                console.log(user)
                 navigate(redirectUrl, { replace: true });
             }).catch((error) => {
-                console.log(error)
+                setErr(error.message)
             })
     }
     // handel github log in
     const handelGithubLogIn = () => {
+        setErr('')
         signInWithGithub()
             .then((result) => {
                 const user = result.user;
                 navigate(redirectUrl, { replace: true });
-                console.log(user);
             }).catch((error) => {
-                console.log(error)
+                setErr(error.message)
             })
     }
     // handle email password log in 
@@ -39,14 +40,13 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
         logInWithEmailAndPassword(email, password)
+        setErr('')
             .then((result) => {
                 const user = result.user;
-                console.log(user);
                 navigate(redirectUrl, { replace: true });
             }).catch((error) => {
-                console.log(error)
+                setErr(error.message)
             })
-        console.log(email, password);
     }
     return (
         <Container className=''>
@@ -59,7 +59,7 @@ const Login = () => {
                     <Form.Group className="mb-2">
                         <Form.Control type="password" name='password' placeholder="Password" />
                     </Form.Group>
-                    <p>This is error</p>
+                    <p className='text-danger'>{err}</p>
                     <div className='d-flex align-items-center'>
                         <Button variant="primary" type="submit">
                             Login

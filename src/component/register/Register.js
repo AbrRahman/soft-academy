@@ -11,22 +11,23 @@ const Register = () => {
     const navigate = useNavigate()
     // handel google register
     const handelGoogleLogIn = () => {
+        setPasswordErr('')
         signInWithGoogle()
             .then((result) => {
                 const user = result.user;
                 console.log(user);
             }).catch((error) => {
-                console.log(error)
+                setPasswordErr(error.message)
             })
     }
     // handel github register
     const handelGithubLogIn = () => {
+        setPasswordErr('')
         signInWithGithub()
             .then((result) => {
                 const user = result.user;
-                console.log(user);
             }).catch((error) => {
-                console.log(error)
+                setPasswordErr(error.message)
             })
     }
     // handel email password register
@@ -48,16 +49,16 @@ const Register = () => {
             return;
         }
         registerEmailAndPassword(email, password)
+        setPasswordErr('')
             .then((result) => {
                 const user = result.user;
-                console.log(user);
                 handleUserProfile(name, photoUrl)
                 navigate('/login')
             }).catch((error) => {
-                console.log(error)
+                setPasswordErr(error.message)
             })
 
-        console.log(name, photoUrl, email, password, confirmPassword);
+
     }
     const handleUserProfile = (name, photoUrl) => {
         const userProfile = {
@@ -66,9 +67,8 @@ const Register = () => {
         }
         updateUserProfile(userProfile)
             .then(() => {
-                console.log('Hello name')
+
             }).catch((error) => {
-                console.log('xyz error', error)
             })
     }
     return (

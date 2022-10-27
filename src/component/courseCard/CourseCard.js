@@ -6,7 +6,7 @@ const CourseCard = ({ course }) => {
     const { rating, title, thumbnail_url, details, course_duration, total_enroll, Instructor, price, _id } = course;
     return (
         <Col>
-            <Card>
+            <Card className='text-dark'>
                 <Card.Img variant="top" src={thumbnail_url} style={{ maxHeight: "120px" }} />
                 <Card.Body>
                     <Card.Title>{title}</Card.Title>

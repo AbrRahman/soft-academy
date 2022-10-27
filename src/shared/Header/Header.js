@@ -13,7 +13,7 @@ const Header = () => {
     const handelLogout = () => {
         logOut();
     }
-    const abc = () => {
+    const lightDark = () => {
         handleDarkNightMode(!lightMode)
     }
     console.log('user is', user)
@@ -21,7 +21,7 @@ const Header = () => {
         <div>
             <Navbar collapseOnSelect className='py-3 bg-3' expand="lg" bg="" variant="">
                 <Container>
-                    <Navbar.Brand as={Link} to="#home">Soft Academy</Navbar.Brand>
+                    <Navbar.Brand as={Link} to="/course">Soft Academy</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
@@ -37,7 +37,7 @@ const Header = () => {
                             }
                         </Nav>
                         <Nav>
-                            <Nav.Link onClick={abc}>{lightMode ? 'light' : 'Dark'}</Nav.Link>
+                            <Nav.Link onClick={lightDark}>{lightMode ? 'Dark' : 'Light'}</Nav.Link>
                             <Nav.Link as={Link}>
                                 {
                                     user && user.uid ? (

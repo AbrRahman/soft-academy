@@ -6,7 +6,7 @@ const CheckOut = () => {
     const course = useLoaderData()
     const { title, price } = course;
     return (
-        <div className='text-center'>
+        <div className='text-center mt-4'>
             <h1>Course name :{title}</h1>
             <h3>Price:{price}</h3>
             <Button variant='primary'>checkout</Button>
