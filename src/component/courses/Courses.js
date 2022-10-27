@@ -8,7 +8,7 @@ const Courses = () => {
     const [courseNames, setCourseName] = useState([]);
     const courses = useLoaderData()
     useEffect(() => {
-        fetch('http://localhost:8000/course-name')
+        fetch('https://soft-academy-server-abrrahman.vercel.app/course-name')
             .then((res) => res.json())
             .then(data => setCourseName(data))
     }, [])
