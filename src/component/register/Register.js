@@ -3,12 +3,12 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 const Register = () => {
     const [passwordErr, setPasswordErr] = useState('')
     const { signInWithGoogle, signInWithGithub, registerEmailAndPassword, updateUserProfile } = useContext(AuthContext);
-
+    const navigate = useNavigate()
     // handel google register
     const handelGoogleLogIn = () => {
         signInWithGoogle()
@@ -51,15 +51,25 @@ const Register = () => {
             .then((result) => {
                 const user = result.user;
                 console.log(user);
+                handleUserProfile(name, photoUrl)
+                navigate('/login')
             }).catch((error) => {
                 console.log(error)
             })
-        updateUserProfile()
-            .then(() => {
-            }).catch((error) => {
-                console.log(error)
-            })
+
         console.log(name, photoUrl, email, password, confirmPassword);
+    }
+    const handleUserProfile = (name, photoUrl) => {
+        const userProfile = {
+            displayName: name,
+            photoURL: photoUrl
+        }
+        updateUserProfile(userProfile)
+            .then(() => {
+                console.log('Hello name')
+            }).catch((error) => {
+                console.log('xyz error', error)
+            })
     }
     return (
         <Container>

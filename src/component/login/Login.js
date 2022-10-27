@@ -3,17 +3,20 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 const Login = () => {
     const { signInWithGoogle, signInWithGithub, logInWithEmailAndPassword } = useContext(AuthContext);
-
+    const navigate = useNavigate();
+    const location = useLocation();
+    const redirectUrl = location.state?.from?.pathname || '/';
     // handel google login
     const handelGoogleLogIn = () => {
         signInWithGoogle()
             .then((result) => {
                 const user = result.user;
-                console.log(user);
+                console.log(user)
+                navigate(redirectUrl, { replace: true });
             }).catch((error) => {
                 console.log(error)
             })
@@ -23,6 +26,7 @@ const Login = () => {
         signInWithGithub()
             .then((result) => {
                 const user = result.user;
+                navigate(redirectUrl, { replace: true });
                 console.log(user);
             }).catch((error) => {
                 console.log(error)
@@ -38,11 +42,11 @@ const Login = () => {
             .then((result) => {
                 const user = result.user;
                 console.log(user);
+                navigate(redirectUrl, { replace: true });
             }).catch((error) => {
                 console.log(error)
             })
         console.log(email, password);
-
     }
     return (
         <Container className=''>

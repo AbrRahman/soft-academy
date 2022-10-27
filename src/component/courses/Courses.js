@@ -1,9 +1,41 @@
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import { Link, useLoaderData } from 'react-router-dom';
+import CourseCard from '../courseCard/CourseCard';
 const Courses = () => {
+    const [courseNames, setCourseName] = useState([]);
+    const courses = useLoaderData()
+    useEffect(() => {
+        fetch('http://localhost:8000/course-name')
+            .then((res) => res.json())
+            .then(data => setCourseName(data))
+    }, [])
     return (
         <div>
-            <h1>This is course component</h1>
+            <Container className="mt-3">
+                <Row>
+                    <Col lg={9}>
+                        <h1>Course card {courses.length}</h1>
+                        <Row lg={3} className="g-4 mt-3">
+                            {
+                                courses.map(course => <CourseCard key={course._id}></CourseCard>)
+                            }
+
+                        </Row>
+                    </Col>
+                    <Col lg={3}>
+                        <div>
+                            <h5></h5>
+                            {
+                                courseNames.map(courseName => <p key={courseName.id}><Link to={`/course/${courseName.course_details_id}`}>{courseName.name}</Link></p>)
+                            }
+                        </div>
+
+                    </Col>
+                </Row>
+            </Container>
         </div>
     );
 };
