@@ -17,17 +17,17 @@ const Courses = () => {
             <Container className="mt-3">
                 <Row>
                     <Col lg={9}>
-                        <h1>Course card {courses.length}</h1>
-                        <Row lg={3} className="g-4 mt-3">
+                        <h3 className='text-center'>Our Courses</h3>
+                        <Row lg={3} className="g-4 mt-2">
                             {
-                                courses.map(course => <CourseCard key={course._id}></CourseCard>)
+                                courses.map(course => <CourseCard key={course._id} course={course}></CourseCard>)
                             }
 
                         </Row>
                     </Col>
                     <Col lg={3}>
                         <div>
-                            <h5></h5>
+                            <h5>Available Course</h5>
                             {
                                 courseNames.map(courseName => <p key={courseName.id}><Link to={`/course/${courseName.course_details_id}`}>{courseName.name}</Link></p>)
                             }
