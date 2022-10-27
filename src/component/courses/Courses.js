@@ -29,7 +29,7 @@ const Courses = () => {
                         <div>
                             <h5>Available Course</h5>
                             {
-                                courseNames.map(courseName => <p key={courseName.id}><Link to={`/course/${courseName.course_details_id}`}>{courseName.name}</Link></p>)
+                                courseNames.map(courseName => <p key={courseName._id}><Link to={`/course/${courseName.course_details_id}`}>{courseName.name}</Link></p>)
                             }
                         </div>
 
