@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Blog from "../../component/blog/Blog";
+import CheckOut from "../../component/checkOut/CheckOut";
 import CourseDetails from "../../component/courseDetails/CourseDetails";
 import Courses from "../../component/courses/Courses";
 import Faq from "../../component/faq/Faq";
@@ -23,7 +24,12 @@ export const router = createBrowserRouter([
                 loader: ({ params }) => fetch(`https://soft-academy-server-abrrahman.vercel.app/course/${params.id}`),
                 element: <CourseDetails></CourseDetails>
             },
-            { path: '/faq', element: <PrivateRouter><Faq></Faq></PrivateRouter> },
+            {
+                path: '/check-out/:id',
+                loader: ({ params }) => fetch(`https://soft-academy-server-abrrahman.vercel.app/course/${params.id}`),
+                element: <PrivateRouter><CheckOut></CheckOut></PrivateRouter>
+            },
+            { path: '/faq', element: <Faq></Faq> },
             { path: '/blog', element: <Blog></Blog> },
             { path: '/login', element: <Login></Login> },
             { path: 'register', element: <Register></Register> }

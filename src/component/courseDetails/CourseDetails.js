@@ -2,12 +2,16 @@ import React, { useRef } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import Pdf from "react-to-pdf";
 const CourseDetails = () => {
     const ref = useRef();
     const courseDetails = useLoaderData();
     const { rating, title, thumbnail_url, details, course_duration, total_enroll, Instructor, price, _id } = courseDetails;
+    const navigate = useNavigate()
+    const handelPurchase = () => {
+        navigate(`/check-out/${_id}`)
+    }
     return (
         <div>
             <Navbar bg="light">
@@ -17,7 +21,7 @@ const CourseDetails = () => {
                             {({ toPdf }) => <Nav.Link><Button onClick={toPdf} variant='primary'>Download</Button></Nav.Link>}
                         </Pdf>
 
-                        <Nav.Link><Button variant='primary'>Purchase Course</Button></Nav.Link>
+                        <Nav.Link onClick={handelPurchase}><Button variant='primary'>Purchase Course</Button></Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
