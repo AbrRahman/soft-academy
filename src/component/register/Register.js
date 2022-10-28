@@ -15,7 +15,7 @@ const Register = () => {
         signInWithGoogle()
             .then((result) => {
                 const user = result.user;
-                console.log(user);
+                navigate('/course')
             }).catch((error) => {
                 setPasswordErr(error.message)
             })
@@ -26,6 +26,7 @@ const Register = () => {
         signInWithGithub()
             .then((result) => {
                 const user = result.user;
+                navigate('/course')
             }).catch((error) => {
                 setPasswordErr(error.message)
             })
@@ -48,8 +49,8 @@ const Register = () => {
             setPasswordErr('Password and confirm password does not match')
             return;
         }
-        registerEmailAndPassword(email, password)
         setPasswordErr('')
+        registerEmailAndPassword(email, password)
             .then((result) => {
                 const user = result.user;
                 handleUserProfile(name, photoUrl)

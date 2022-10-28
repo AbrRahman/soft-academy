@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { FaUserAlt } from 'react-icons/fa';
+import { FaMoon, FaSun, FaUserAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import './Header.css';
@@ -37,7 +37,7 @@ const Header = () => {
                             }
                         </Nav>
                         <Nav>
-                            <Nav.Link onClick={lightDark}>{lightMode ? 'Dark' : 'Light'}</Nav.Link>
+                            <Nav.Link onClick={lightDark}>{lightMode ? <span>Dark <FaMoon></FaMoon></span> : <span>Light <FaSun></FaSun></span>}</Nav.Link>
                             <Nav.Link as={Link}>
                                 {
                                     user && user.uid ? (
